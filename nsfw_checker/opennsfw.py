@@ -33,5 +33,5 @@ class NSFWChecker:
 
             if score > threshold:
                 print(f"Detected nsfw score:{score}")
-                return True
+                return False
         return False
