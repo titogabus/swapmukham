@@ -12,8 +12,6 @@ from moviepy.editor import VideoFileClip, ImageSequenceClip
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 
-logo_image = cv2.imread("./assets/images/logo.png", cv2.IMREAD_UNCHANGED)
-
 
 quality_types = ["poor", "low", "medium", "high", "best"]
 
@@ -141,23 +139,6 @@ class ProcessBar:
         info_text += f"(ETR: {int(estimated_remaining_time // 60)} min {int(estimated_remaining_time % 60)} sec)"
         return info_text
 
-
-def add_logo_to_image(img, logo=logo_image):
-    logo_size = int(img.shape[1] * 0.1)
-    logo = cv2.resize(logo, (logo_size, logo_size))
-    if logo.shape[2] == 4:
-        alpha = logo[:, :, 3]
-    else:
-        alpha = np.ones_like(logo[:, :, 0]) * 255
-    padding = int(logo_size * 0.1)
-    roi = img.shape[0] - logo_size - padding, img.shape[1] - logo_size - padding
-    for c in range(0, 3):
-        img[roi[0] : roi[0] + logo_size, roi[1] : roi[1] + logo_size, c] = (
-            alpha / 255.0
-        ) * logo[:, :, c] + (1 - alpha / 255.0) * img[
-            roi[0] : roi[0] + logo_size, roi[1] : roi[1] + logo_size, c
-        ]
-    return img
 
 
 def split_list_by_lengths(data, length_list):
