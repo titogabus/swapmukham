@@ -560,7 +560,7 @@ css = """
 footer{display:none !important}
 """
 
-with gr.Blocks(css=css) as interface:
+with gr.Column(css=css) as interface:
     gr.Markdown("# 🗿 Swap Mukham")
     gr.Markdown("### Face swap app based on insightface inswapper.")
     with gr.Row():
@@ -689,7 +689,7 @@ with gr.Blocks(css=css) as interface:
                     label="Source face", type="filepath", interactive=True
                 )
 
-                with gr.Box(visible=False) as specific_face:
+                with gr.Column(visible=False) as specific_face:
                     for i in range(NUM_OF_SRC_SPECIFIC):
                         idx = i + 1
                         code = "\n"
@@ -715,12 +715,12 @@ with gr.Blocks(css=css) as interface:
                         value="Video",
                     )
 
-                    with gr.Box(visible=False) as input_image_group:
+                    with gr.Column(visible=False) as input_image_group:
                         image_input = gr.Image(
                             label="Target Image", interactive=True, type="filepath"
                         )
 
-                    with gr.Box(visible=True) as input_video_group:
+                    with gr.Column(visible=True) as input_video_group:
                         vid_widget = gr.Video if USE_COLAB else gr.Text
                         video_input = vid_widget(
                             label="Target Video Path", interactive=True
@@ -765,7 +765,7 @@ with gr.Blocks(css=css) as interface:
                                 "Trim and Reload", interactive=True
                             )
 
-                    with gr.Box(visible=False) as input_directory_group:
+                    with gr.Column(visible=False) as input_directory_group:
                         direc_input = gr.Text(label="Path", interactive=True)
 
             with gr.Column(scale=0.6):
@@ -788,7 +788,7 @@ with gr.Blocks(css=css) as interface:
                         "🎬", interactive=False, visible=not USE_COLAB
                     )
 
-                with gr.Box():
+                with gr.Column():
                     with gr.Row():
                         gr.Markdown(
                             "### [🤝 Sponsor](https://github.com/sponsors/harisreedhar)"
@@ -921,4 +921,4 @@ if __name__ == "__main__":
     if USE_COLAB:
         print("Running in colab mode")
 
-    interface.queue(concurrency_count=2, max_size=20).launch(share=USE_COLAB)
+    interface.launch(share=USE_COLAB)
