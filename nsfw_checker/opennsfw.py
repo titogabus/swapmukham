@@ -14,7 +14,7 @@ class NSFWChecker:
         session_options = onnxruntime.SessionOptions()
         self.session = onnxruntime.InferenceSession(model_path, sess_options=session_options, providers=providers)
 
-    def is_nsfw(self, img_paths, threshold = 0.85):
+    def is_nsfw(self, img_paths, threshold = 1):
         skip_step = 1
         total_len = len(img_paths)
         if total_len < 100: skip_step = 1
